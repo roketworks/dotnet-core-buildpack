@@ -51,7 +51,7 @@ module AspNetCoreBuildpack
       global_json_file = File.expand_path(File.join(@build_dir, @global_json_file_name))
       sdk_version = get_version_from_global_json(global_json_file)
       if sdk_version && !sdk_version_exists(sdk_version)
-        warning = "SDK #{sdk_version} not available, using the default SDK version(#{@default_sdk_version})"
+        warning = "SDK #{sdk_version} not available,\nusing the default SDK version(#{@default_sdk_version})"
         out.warn(warning)
         return @default_sdk_version
       end

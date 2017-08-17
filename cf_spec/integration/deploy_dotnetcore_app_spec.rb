@@ -110,7 +110,8 @@ describe 'CF ASP.NET Core Buildpack' do
     it 'logs a warning about using default SDK' do
       expect(app).to be_running
 
-      expect(app).to have_logged('Warning: SDK 2.0.0-preview-007 not available, using the default SDK version ')
+      expect(app).to have_logged('WARNING: SDK 2.0.0-preview-007 not available')
+      expect(app).to have_logged('using the default SDK')
 
       browser.visit_path('/')
       expect(browser).to have_body('Hello From Dotnet 2.0')
