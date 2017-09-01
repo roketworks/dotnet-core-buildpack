@@ -68,22 +68,34 @@ module AspNetCoreBuildpack
     def needed_framework_versions
       version_hash = {}
 
+      puts "DG: ---- available_versions = (#{available_versions.join(',')})"
+
       restored_framework_versions.each do |ver|
         major, minor, = ver.split('.')
         version_line = "#{major}.#{minor}"
 
-        if version_hash[version_line].nil?
-          version_hash[version_line] = available_versions.include?(ver) ? [ver] : [get_version_from_version_line(version_line)]
+        puts "DG: ---- ver = (#{ver}) ; vline = (#{version_line})"
+
+        version_hash[version_line] = [[],[]]
+        if available_versions.include?(ver)
+          version_hash[version_line][0].push ver
         else
-          version_hash[version_line].push available_versions.include?(ver) ? ver : get_version_from_version_line(version_line)
+          version_hash[version_line][1].push get_version_from_version_line(version_line)
         end
       end
 
+      puts "DG: --- version_hash = #{version_hash.inspect}"
+
       required_versions = version_hash.values.map do |v|
-        v.sort_by { |a| gem_version_parse(a) }.last
+        arr = v[0].length > 0 ? v[0] : v[1]
+        arr.sort_by { |a| gem_version_parse(a) }.last
       end
 
+      puts "DG: --- required_versions = #{required_versions.inspect}"
+
       required_versions += runtime_framework_versions if msbuild?
+
+      puts "DG: --- required_versions = #{required_versions.inspect}"
 
       required_versions.sort_by { |a| gem_version_parse(a) }
     end
