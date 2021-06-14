@@ -5,7 +5,7 @@ require (
 	github.com/Masterminds/semver v1.5.0
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/cloudfoundry/libbuildpack v0.0.0-20210608233952-b5d1ff03c407
-	github.com/go-ini/ini v1.42.0
+	github.com/go-ini/ini v1.62.0
 	github.com/golang/mock v1.5.0
 	github.com/gravityblast/go-jsmin v0.0.0-20141027113318-a32d741b3595
 	github.com/kr/text v0.2.0
